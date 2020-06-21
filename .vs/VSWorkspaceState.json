@@ -1,8 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\caffe"
+    "\\caffe",
+    "\\filehlp",
+    "\\res",
+    "\\result_1"
   ],
-  "SelectedNode": "\\caffe\\bvlc_googlenet.caffemodel",
+  "SelectedNode": "\\Me_Analyzer.py",
   "PreviewInSolutionExplorer": false
 }

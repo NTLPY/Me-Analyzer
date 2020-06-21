@@ -110,6 +110,8 @@ for t in sets["types"]["except"]:
         del file_types[t.upper()];
     except:
         pass;
+if (len(file_types) == 0):
+    file_types = { "Oh, we can't find anything in your folder!" : 1};
 
 #filter words: filter, sort
 for w in sets["words"]["ch"]["except"]:
@@ -121,6 +123,8 @@ words["ch"] = [(k, v) for (k, v) in words["ch"].items() if ((len(k) >= sets["wor
 words["ch"].sort(key = lambda elem: elem[1], reverse = True);
 words["ch"] = words["ch"][:sets["words"]["ch"]["max_count"]];
 words["ch"] = dict(words["ch"]);
+if (len(words["ch"]) == 0):
+    words["ch"] = { "Oh, we can't find anything in your folder!" : 1};
 
 for w in sets["words"]["en"]["except"]:
     try:
@@ -131,6 +135,8 @@ words["en"] = [(k, v) for (k, v) in words["en"].items() if ((len(k) >= sets["wor
 words["en"].sort(key = lambda elem: elem[1], reverse = True);
 words["en"] = words["en"][:sets["words"]["en"]["max_count"]];
 words["en"] = dict(words["en"]);
+if (len(words["en"]) == 0):
+    words["en"] = { "Oh, we can't find anything in your folder!" : 1};
 
 for w in sets["words"]["num"]["except"]:
     try:
@@ -141,12 +147,16 @@ words["num"] = [(str(k), v) for (k, v) in words["num"].items() if ((k > sets["wo
 words["num"].sort(key = lambda elem: elem[1], reverse = True);
 words["num"] = words["num"][:sets["words"]["num"]["max_count"]];
 words["num"] = dict(words["num"]);
+if (len(words["num"]) == 0):
+    words["num"] = { "Oh, we can't find anything in your folder!" : 1};
 
 #filter pics
-pic_types = [(filehlp.pichlp.object_name[i], pic_types[i]) for i in range(len(pic_types))]
+pic_types = [(filehlp.pichlp.object_name[i], pic_types[i]) for i in range(len(pic_types)) if (pic_types[i] >= 1)]
 pic_types.sort(key = lambda elem: elem[1], reverse = True);
 pic_types = pic_types[:sets["pics"]["max_count"]];
 pic_types = dict(pic_types);
+if (len(pic_types) == 0):
+    pic_types = { "Oh, we can't find anything in your folder!" : 1};
 
 """
     Part IV: Output Result
@@ -164,6 +174,7 @@ def random_color_func(word, font_size, position, orientation, font_path, random_
 
 # create an word cloud image from a dict
 def create_wordcloud_from_freq(freq : dict, font_path : str):
+
     tmp_cloud = wordcloud.WordCloud(width = sets["output"]["width"],
                                    height = sets["output"]["height"],
                                    mask = sets["output"]["_mask_img"],
